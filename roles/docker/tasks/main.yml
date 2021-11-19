@@ -1,0 +1,51 @@
+- name: Check is Docker installed
+  shell: command -v docker >/dev/null 2>&1 && echo 'yes' || echo 'no'
+  register: is_docker_exist
+  ignore_errors: yes
+  tags:
+    - docker
+    - test
+
+- name: Debug Docker installed
+  debug:
+    msg: '{{ is_docker_exist.stdout }}'
+    verbosity: 1
+  tags:
+    - docker
+    - test
+
+- name: Get Docker installation script
+  get_url:
+    url: https://get.docker.com
+    dest: /tmp/get-docker.sh
+    mode: '+x'
+  when: is_docker_exist.stdout == 'no'
+  tags:
+    - docker
+
+- name: Install Docker
+  command: /tmp/get-docker.sh
+  when: is_docker_exist.stdout == 'no'
+  tags:
+    - docker
+
+- name: Adding existing user '{{ ansible_user_id }}' to group docker
+  become: yes
+  user:
+    name: '{{ ansible_user_id }}'
+    groups: docker
+    append: yes
+  tags:
+    - docker
+
+- name: Remove Docker installation script
+  file:
+    path: /tmp/get-docker.sh
+    state: absent
+  tags:
+    - docker
+
+- name: Reset ssh connection to allow user changes
+  meta: reset_connection
+  tags:
+    - docker

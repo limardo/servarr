@@ -1,0 +1,53 @@
+- name: Check is Docker Compose installed
+  shell: command -v docker-compose >/dev/null 2>&1 && echo 'yes' || echo 'no'
+  register: is_docker_compose_exist
+  ignore_errors: yes
+  tags:
+    - docker-compose
+    - test
+
+- name: Debug Docker Compose installed
+  debug:
+    msg: '{{ is_docker_compose_exist.stdout }}'
+    verbosity: 1
+  tags:
+    - docker-compose
+    - test
+
+- name: Get Operator System
+  shell: uname -s
+  register: docker_compose_os_get
+  when: uname == true
+  tags:
+    - docker-compose
+
+- name: Get Hardware class
+  shell: uname -m
+  register: docker_compose_hc_get
+  when: uname == true
+  tags:
+    - docker-compose
+
+- name: Set Operator System
+  set_fact:
+    docker_compose_os: '{{ docker_compose_os_get.stdout }}'
+  when: uname == true
+  tags:
+    - docker-compose
+
+- name: Set Hardware class
+  set_fact:
+    docker_compose_hc: '{{ docker_compose_hc_get.stdout }}'
+  when: uname == true
+  tags:
+    - docker-compose
+
+- name: Install Docker Compose
+  become: yes
+  get_url:
+    url: '{{ docker_compose_url }}'
+    dest: /usr/local/bin/docker-compose
+    mode: '+x'
+  when: is_docker_compose_exist.stdout == 'no'
+  tags:
+    - docker-compose

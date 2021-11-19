@@ -1,0 +1,8 @@
+- hosts: webserver
+  name: 'Webserver'
+  vars:
+    uname: true
+  roles:
+    - docker
+    - docker-compose
+    - servarr

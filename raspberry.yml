@@ -1,0 +1,37 @@
+version: "3.9"
+
+x-shared_resources: &shared_resources
+  resources:
+    limits:
+      cpus: "0.20"
+      memory: 150m
+    reservations:
+      cpus: "0.15"
+      memory: 100m
+
+services:
+  radarr:
+    deploy:
+      <<: *shared_resources
+
+  sonarr:
+    deploy:
+      <<: *shared_resources
+
+  lidarr:
+    deploy:
+      <<: *shared_resources
+
+  readarr:
+    deploy:
+      <<: *shared_resources
+
+  jackett:
+    deploy:
+      <<: *shared_resources
+
+  flaresolverr:
+    environment:
+      - BROWSER_TIMEOUT=120000
+    deploy:
+      <<: *shared_resources

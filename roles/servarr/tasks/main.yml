@@ -1,0 +1,13 @@
+- name: Copy docker-compose.yml
+  copy:
+    src: docker-compose.yml
+    dest: '{{ servarr_path }}/docker-compose.yml'
+  tags:
+    - servarr
+
+- name: Start services
+  command:
+    cmd: docker-compose up -d
+    chdir: '{{ servarr_path }}'
+  tags:
+    - servarr

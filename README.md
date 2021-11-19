@@ -15,7 +15,7 @@
 
 ## Vagrant
 
-start with `vagrant up` and remove with `vagrant destroy`
+start with `VAGRANT_EXPERIMENTAL="typed_triggers" vagrant up` and remove with `vagrant destroy`
 
 ## Docker Compose
 

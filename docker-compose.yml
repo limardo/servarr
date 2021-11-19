@@ -3,70 +3,84 @@ services:
   radarr:
     image: linuxserver/radarr:latest
     environment:
-      - PUID=501
-      - PGID=500
+      - PUID=${SERVARR_PUID:-1000}
+      - PGID=${SERVARR_PGID:-1000}
       - TZ=Europe/Rome
     volumes:
-      - ./data/config/radarr:/config
-      - ./data/movies:/movies:wr
-      - ./data/download:/downloads:wr
+      - ${RADARR_CONFIG_PATH:-./data/config/radarr}:/config
+      - ${RADARR_MOVIES_PATH:-./data/movies}:/movies:wr
+      - ${RADARR_DOWNLOAD_PATH:-./data/download}:/downloads:wr
     ports:
       - 7878:7878
     restart: unless-stopped
+    privileged: true
 
   sonarr:
     image: linuxserver/sonarr:latest
     environment:
-      - PUID=501
-      - PGID=500
+      - PUID=${SERVARR_PUID:-1000}
+      - PGID=${SERVARR_PGID:-1000}
       - TZ=Europe/Rome
     volumes:
-      - ./data/config/sonarr:/config
-      - ./data/tv:/tv:wr
-      - ./data/download:/downloads:wr
+      - ${SONARR_CONFIG_PATH:-./data/config/sonarr}:/config
+      - ${SONARR_TV_PATH:-./data/tv}:/tv:wr
+      - ${SONARR_DOWNLOAD_PATH:-./data/download}:/downloads:wr
     ports:
       - 8989:8989
     restart: unless-stopped
+    privileged: true
 
   lidarr:
     image: linuxserver/lidarr:latest
     environment:
-      - PUID=501
-      - PGID=500
+      - PUID=${SERVARR_PUID:-1000}
+      - PGID=${SERVARR_PGID:-1000}
       - TZ=Europe/Rome
     volumes:
-      - ./data/config/lidarr:/config
-      - ./data/music:/music:wr
-      - ./data/download:/downloads:wr
+      - ${LIDARR_CONFIG_PATH:-./data/config/lidarr}:/config
+      - ${LIDARR_MUSIC_PATH:-./data/music}:/music:wr
+      - ${LIDARR_DOWNLOAD_PATH:-./data/download}:/downloads:wr
     ports:
       - 8686:8686
     restart: unless-stopped
+    privileged: true
 
   readarr:
     image: linuxserver/readarr:nightly
     environment:
-      - PUID=501
-      - PGID=500
+      - PUID=${SERVARR_PUID:-1000}
+      - PGID=${SERVARR_PGID:-1000}
       - TZ=Europe/Rome
     volumes:
-      - ./data/config/readarr:/config
-      - ./data/books:/books:wr
-      - ./data/download:/downloads:wr
+      - ${READARR_CONFIG_PATH:-./data/config/readarr}:/config
+      - ${READARR_BOOK_PATH:-./data/books}:/books:wr
+      - ${READARR_DOWNLOAD_PATH:-./data/download}:/downloads:wr
     ports:
       - 8787:8787
     restart: unless-stopped
+    privileged: true
 
   jackett:
     image: linuxserver/jackett:latest
     environment:
-      - PUID=501
-      - PGID=500
+      - PUID=${SERVARR_PUID:-1000}
+      - PGID=${SERVARR_PGID:-1000}
       - TZ=Europe/Rome
       - AUTO_UPDATE=true
     volumes:
-      - ./data/config/jackett:/config
-      - ./data/download:/downloads:wr
+      - ${JACKETT_CONFIG_PATH:-./data/config/jackett}:/config
+      - ${JACKETT_DOWNLOAD_PATH:-./data/download}:/downloads:wr
     ports:
       - 9117:9117
     restart: unless-stopped
-  
+    privileged: true
+
+  flaresolverr:
+    image: ghcr.io/flaresolverr/flaresolverr:latest
+    environment:
+      - LOG_LEVEL=info
+      - TZ=Europe/Rome
+    ports:
+      - 8191:8191
+    restart: unless-stopped
+    privileged: true
