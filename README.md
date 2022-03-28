@@ -1,17 +1,17 @@
 # Servarr
 
 - Radarr  
-  `http://localhost:7878`
+  `http://[HOST]:7878`
 - Sonarr  
-  `http://localhost:8989`
+  `http://[HOST]:8989`
 - Lidarr  
-  `http://localhost:8686`
+  `http://[HOST]:8686`
 - Readarr  
-  `http://localhost:8787`
-- Jackett  
-  `http://localhost:9117`
-- Transmission  
-  `http://localhost:9091`
+  `http://[HOST]:8787`
+- Prowlarr  
+  `http://[HOST]:9696`
+- FlareSolverr  
+  `http://[HOST]:8191`
 
 ## Vagrant
 

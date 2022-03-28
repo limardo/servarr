@@ -22,8 +22,6 @@ READARR_CONFIG_PATH=#{project_path}/data/config/readarr
 READARR_BOOK_PATH=#{project_path}/data/books
 READARR_DOWNLOAD_PATH=#{project_path}/data/download
 PROWLARR_CONFIG_PATH=#{project_path}/data/config/prowlarr
-JACKETT_CONFIG_PATH=#{project_path}/data/config/jackett
-JACKETT_DOWNLOAD_PATH=#{project_path}/data/download
 EOF
 SCRIPT
 
@@ -36,7 +34,6 @@ Vagrant.configure("2") do |config|
     machine.vm.network "forwarded_port", guest: 8686, host: 8686 # Lidarr
     machine.vm.network "forwarded_port", guest: 8787, host: 8787 # Readarr
     machine.vm.network "forwarded_port", guest: 9696, host: 9696 # Prowlarr
-    machine.vm.network "forwarded_port", guest: 9117, host: 9117 # Jackett
     machine.vm.network "forwarded_port", guest: 8191, host: 8191 # Flaresolverr
 
     machine.vm.provider 'virtualbox' do |v|

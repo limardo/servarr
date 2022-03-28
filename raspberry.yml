@@ -30,10 +30,6 @@ services:
     deploy:
       <<: *shared_resources
 
-  jackett:
-    deploy:
-      <<: *shared_resources
-
   flaresolverr:
     environment:
       - BROWSER_TIMEOUT=3600000
