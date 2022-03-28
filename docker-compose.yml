@@ -59,6 +59,19 @@ services:
       - 8787:8787
     restart: unless-stopped
     privileged: true
+  
+  prowlarr:
+    image: lscr.io/linuxserver/prowlarr:nightly
+    environment:
+      - PUID=${SERVARR_PUID:-1000}
+      - PGID=${SERVARR_PGID:-1000}
+      - TZ=Europe/Rome
+    volumes:
+      - ${PROWLARR_CONFIG_PATH:-./data/config/prowlarr}:/config
+    ports:
+      - 9696:9696
+    restart: unless-stopped
+    privileged: true
 
   jackett:
     image: linuxserver/jackett:latest
