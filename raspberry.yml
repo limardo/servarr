@@ -26,12 +26,16 @@ services:
     deploy:
       <<: *shared_resources
 
+  prowlarr:
+    deploy:
+      <<: *shared_resources
+
   jackett:
     deploy:
       <<: *shared_resources
 
   flaresolverr:
     environment:
-      - BROWSER_TIMEOUT=120000
+      - BROWSER_TIMEOUT=3600000
     deploy:
       <<: *shared_resources
