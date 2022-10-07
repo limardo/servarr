@@ -1,7 +1,7 @@
 version: "3.9"
 services:
   radarr:
-    image: linuxserver/radarr:latest
+    image: lscr.io/linuxserver/radarr:latest
     environment:
       - PUID=${SERVARR_PUID:-1000}
       - PGID=${SERVARR_PGID:-1000}
@@ -16,7 +16,7 @@ services:
     privileged: true
 
   sonarr:
-    image: linuxserver/sonarr:latest
+    image: lscr.io/linuxserver/sonarr:latest
     environment:
       - PUID=${SERVARR_PUID:-1000}
       - PGID=${SERVARR_PGID:-1000}
@@ -31,7 +31,7 @@ services:
     privileged: true
 
   lidarr:
-    image: linuxserver/lidarr:latest
+    image: lscr.io/linuxserver/lidarr:latest
     environment:
       - PUID=${SERVARR_PUID:-1000}
       - PGID=${SERVARR_PGID:-1000}
@@ -46,7 +46,7 @@ services:
     privileged: true
 
   readarr:
-    image: linuxserver/readarr:nightly
+    image: lscr.io/linuxserver/readarr:nightly
     environment:
       - PUID=${SERVARR_PUID:-1000}
       - PGID=${SERVARR_PGID:-1000}
